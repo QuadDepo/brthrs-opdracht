@@ -12,17 +12,14 @@ export const getFilms = async (title: string, limit: number, skip: number) => {
 }
 
 export const getFilmCount = async () => {
-    const count = await filmModel.countDocuments().exec();
-    return count;
+    return await filmModel.countDocuments().exec();
 }
 
 export const getFilmCharacterCount = async (_id: number, gender: RegExp) => {
-    const count = await peopleModel.countDocuments({
+    return await peopleModel.countDocuments({
         films: _id,
         gender: { $regex: gender }
-    }).exec().orFail(new Error('It’s a trap!'));
-
-    return count;
+    }).exec()
 }
 
 export const getFilmById = async (_id: number, limit: number, skip: number, gender: RegExp) => {
@@ -37,5 +34,5 @@ export const getFilmById = async (_id: number, limit: number, skip: number, gend
             skip,
             limit
         },
-    }).exec().orFail(new Error('It’s a trap!'));
+    }).exec()
 }
