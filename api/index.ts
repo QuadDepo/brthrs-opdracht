@@ -1,7 +1,6 @@
+import mongoose from 'mongoose';
 import express from 'express';
-const app = express();
+const MONGO_URL = "mongodb://127.0.0.1:27017/geeksforgeeks";
 const PORT = 9000;
-app.get('/', (req, res) => res.send('Express + TypeScript Server'));
-app.listen(PORT, () => {
-  console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`);
+mongoose.connect(MONGO_URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
 });
