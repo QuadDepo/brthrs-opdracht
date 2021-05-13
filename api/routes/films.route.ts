@@ -3,32 +3,37 @@ import pagination from '../utils/pagination.util'
 import * as filmService from '../services/film.services';
 
 export const getFilms = async (req: Request, res: Response) => {
-    const { title = "", limit = 30, page = 1 } = { ...req.query };
-    const total = await filmService.getFilmCount()
+    try {
+        const { title = '.', limit = 30, page = 1 } = { ...req.query };
+        const _title = new RegExp(`.*${title}.*`, 'i');
+        const total = await filmService.getFilmCount(_title)
 
-    const {
-        startIndex,
-        next,
-        prev,
-    } = pagination(+limit, +page, +total);
+        const {
+            startIndex,
+            next,
+            prev,
+        } = pagination(+limit, +page, +total);
 
 
-    const results = await filmService.getFilms(title, +limit, +startIndex, );
+        const results = await filmService.getFilms(_title, +limit, +startIndex);
 
-    res.send({
-        total,
-        next,
-        prev,
-        results,
-        count: results.length
-    });
+        res.send({
+            total,
+            next,
+            prev,
+            results,
+            count: results.length
+        });
+    } catch (err) {
+        res.status(500).send({ err: err.message });
+    }
 }
 
 export const getFilmById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        const { limit = 30, page = 1, gender = null} = { ...req.query };
-        const _gender: RegExp = gender  ? new RegExp(`^${gender}`, 'i') : new RegExp('.', 'i');
+        const { limit = 30, page = 1, gender = '.'} = { ...req.query };
+        const _gender: RegExp = new RegExp(`^${gender}`, 'i');
         const total = await filmService.getFilmCharacterCount(+id, _gender);
 
         const {
