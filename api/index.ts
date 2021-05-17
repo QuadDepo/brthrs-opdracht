@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-import * as filmRoutes from './routes/films.route';
-import * as planetRoutes from './routes/planets.route';
+import filmRoutes from './routes/films.route';
+import planetRoutes from './routes/planets.route';
+import PeopleRoutes from './routes/peoples.route';
 import { populateData } from './utils/swapi.util';
 import express from 'express';
 
@@ -9,17 +10,20 @@ const MONGO_URL = "mongodb://127.0.0.1:27017/brothers";
 const PORT = 9000;
 
 // Connect to mongoDB
-mongoose.connect(MONGO_URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(MONGO_URL, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true, ignoreUndefined: true });
 
+// Get data from Swapi Dev api
+// Should be moved to cron-job
 populateData()
 
 // Films routes
-APP.use('/films', filmRoutes.getFilms);
-APP.use('/film/:id', filmRoutes.getFilmById);
+APP.use('/films', filmRoutes);
 
 // Planets routes
-APP.use('/planets/', planetRoutes.getPlanets);
-APP.use('/planet/:id', planetRoutes.getPlanetById);
+APP.use('/planets/', planetRoutes);
+
+// People routes
+APP.use('/peoples/', PeopleRoutes);
 
 // Add 404 Page
 APP.get('*', (req, res) => {

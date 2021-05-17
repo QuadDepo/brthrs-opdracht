@@ -37,7 +37,7 @@ const PeopleSchema = new mongoose.Schema({
     required: true
   },
   homeworld: {
-    type: String,
+    type: Number,
     required: false
   },
   films: {
