@@ -1,18 +1,18 @@
 import filmModel from '../models/films.models';
 import peopleModel from '../models/people.models'
 
-export const getFilms = async (title: string, limit: number, skip: number) => {
-    const _name = new RegExp(`.*${title}.*`, 'i');
-
+export const getFilms = async (title: RegExp, limit: number, skip: number) => {
     const films = await filmModel.find({
-        title: { $regex: _name }
+        title: { $regex: title }
     }).skip(skip).limit(limit).exec()
     
     return films;
 }
 
-export const getFilmCount = async () => {
-    return await filmModel.countDocuments().exec();
+export const getFilmCount = async (title: RegExp) => {
+    return await filmModel.countDocuments({
+        title: { $regex: title }
+    }).exec();
 }
 
 export const getFilmCharacterCount = async (_id: number, gender: RegExp) => {
