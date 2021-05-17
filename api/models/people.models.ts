@@ -9,7 +9,7 @@ const PeopleSchema = new mongoose.Schema({
     required: true
   },
   height: {
-    type: String,
+    type: Number,
     required: true
   },
   mass: {
