@@ -28,7 +28,7 @@ const initialState = {
 
 // Create Film reducer
 function FilmReducer(state, {type, payload}) {
-  console.log(Object.keys(payload));
+
   switch (type) {
     case CONST.GET_FILMS:
       return {
@@ -98,7 +98,6 @@ function FilmsProvider({ children }) {
     effect,
     initialState
   );
-  console.log(state.films.data.length);
   const value = { state, dispatch };
 
   return (
