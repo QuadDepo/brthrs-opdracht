@@ -12,9 +12,16 @@ const getData = async (endpoint: any) => {
         const response = await fetch(url);
         const data = await response.json();
 
-        // Create Mongoose _id from page URL.
         data.results = data.results.map((item: any) => {
+            // Create Mongoose _id from page URL.
             item._id = item.url;
+
+            // Add age index for sorting
+            if (item?.birth_year) {
+                // Change to Number type 
+                item.age = item.birth_year === 'unknown' ? -1 : parseInt(item?.birth_year.replace('BBY', ''), 10);
+            }
+
             return item;
         })
 
