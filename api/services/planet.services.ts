@@ -8,11 +8,11 @@ export const getPlanets = async (name: RegExp, climate: RegExp, limit: number, s
     }).skip(skip).limit(limit).exec()
 }
 
-export const getPlanetsCount = async (climate: RegExp) => {
-    return await planetsModel.countDocuments({ climate: { $regex: climate} }).exec();
+export const getPlanetsCount = async (climate: RegExp, name: RegExp) => {
+    return await planetsModel.countDocuments({ climate: { $regex: climate }, name: { $regex: name } }).exec();
 }
 
-export const getPlanetById = async (_id: number, hair_color: RegExp) => {    
+export const getPlanetById = async (_id: number, hair_color: RegExp) => {
     return await planetsModel.findOne({ _id }).populate({
         path: 'residents',
         match: {
