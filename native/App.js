@@ -4,6 +4,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { FilmsProvider } from "./src/context/Films";
 
 // Import pages
 import FilmsPage from "./src/pages/FilmsPage";
@@ -30,6 +31,7 @@ function FilmStack() {
 
 export default function App() {
   return (
+    <FilmsProvider>
       <StatusBar style="light" />
       <SafeAreaProvider>
         <NavigationContainer>
@@ -43,6 +45,6 @@ export default function App() {
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
-    </>
+    </FilmsProvider>
   );
 }
