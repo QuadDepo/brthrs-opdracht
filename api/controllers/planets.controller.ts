@@ -37,10 +37,7 @@ export const getAllPlanets = async (req: Request, res: Response) => {
 export const getPlanetById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
-        // // Default hair_color to be "." so it will match the RegEx and can't be undefined.
-        // const { hair_color = '.' } = { ...req.query };
-        // // Create hair_color Regex with case insensitive matching.
-        // const _hair_color: RegExp = new RegExp(`${hair_color}`, 'i');
+        
         // Be sure _id is a number and not a string
         const results = await PlanetsService.getPlanetById(+id);
 
