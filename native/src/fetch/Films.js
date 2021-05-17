@@ -3,7 +3,7 @@ import * as CONST from "../const";
 export const getFilms = async ({ title }) => {
   try {
     const params = new URLSearchParams({ title });
-    const response = await fetch(`http://localhost:9000/films?${params}`);
+    const response = await fetch(`http://localhost:9000/films/?${params}`);
     const data = await response.json();
 
     // Dispatch SUCCESS
@@ -41,14 +41,23 @@ export const getSingleFilm = async ({ id }) => {
 
 export const getCharactersByFilm = async ({
   id,
-  page,
+  page = 1,
   limit,
   gender,
   sorting,
 }) => {
   try {
     // Create Query String from given data
-    const params = new URLSearchParams({ page, limit, gender, sorting });
+    const query = { page, limit, gender, sorting };
+
+    // Remove undefined query params
+    Object.keys(query).forEach(
+      (key) => query[key] === undefined && delete query[key]
+    );
+
+    // Create URL Search Pararms
+    const params = new URLSearchParams({ ...query });
+
     const response = await fetch(
       `http://localhost:9000/films/${id}/characters/?${params}`
     );
