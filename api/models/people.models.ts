@@ -74,11 +74,6 @@ const PeopleSchema = new mongoose.Schema({
   toObject: { virtuals: true }
 });
 
-PeopleSchema.virtual('age').get(function (this: any) {
-  const age = this.birth_year.replace('BBY', '');
-  return age === 'unknown' ? -1 : parseInt(age, 10)
-});
-
 const people = mongoose.model("people", PeopleSchema);
 
 export default people
