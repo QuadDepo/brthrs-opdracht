@@ -1,0 +1,403 @@
+{
+	"info": {
+		"_postman_id": "a33c4985-7bbf-49cb-8c2b-05852d4180df",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Films",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Film by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Male Gender By Film ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/1/characters?gender=male",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"1",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "male"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Next page of Characters by Film ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/4/characters?page=2&limit=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"4",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						},
+						{
+							"key": "limit",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Female Gender By Film ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/1/characters?gender=female",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"1",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "female"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Unknown Gender By Film ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/1/characters?gender=n/a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"1",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "gender",
+							"value": "n/a"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sort Film Charathers on Desc Age",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/1/characters?sorting=age:desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"1",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "sorting",
+							"value": "age:desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sort Film Charathers on Asc Age",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/1/characters?sorting=age:asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"1",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "sorting",
+							"value": "age:asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sort Film Charathers on Desc Height",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/1/characters?sorting=height:desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"1",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "sorting",
+							"value": "height:desc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sort Film Charathers on Asc Height",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/films/1/characters?sorting=height:asc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"films",
+						"1",
+						"characters"
+					],
+					"query": [
+						{
+							"key": "sorting",
+							"value": "height:asc"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All planets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/planets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"planets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All planets by name",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/planets?name=Tatooine",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"planets"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Tatooine"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All planets by Climate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/planets?climate=arid",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"planets"
+					],
+					"query": [
+						{
+							"key": "climate",
+							"value": "arid"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Planet by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/planets/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"planets",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Residents on hair_color from Planet",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/planets/1/residents?hair_color=blond",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"planets",
+						"1",
+						"residents"
+					],
+					"query": [
+						{
+							"key": "hair_color",
+							"value": "blond"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get 404 Route",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/not_a_route",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"not_a_route"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
