@@ -1,5 +1,5 @@
 
-# Swapi Dev Assignemtn
+# Swapi Dev Assigment
 
 You have been given an assignment to make a backend for the website of a Star
 Wars fanclub. The website exists out of a couple of pages with dynamic content
