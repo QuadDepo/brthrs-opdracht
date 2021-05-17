@@ -26,7 +26,7 @@ export default function FilmPage() {
   }, []);
 
   const flatListItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigate("FilmDetail", {id: _id})}>
+    <TouchableOpacity onPress={() => navigate("FilmDetail", {id: item._id})}>
       <Text>{item.title}</Text>
     </TouchableOpacity>
   );
