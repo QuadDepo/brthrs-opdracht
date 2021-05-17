@@ -70,16 +70,22 @@ export const populateData = async () => {
             // If SwapiDev adds new endpoint without having correct Model for it.
             if (typeof model === 'undefined') throw new Error('Trying to access unknown Model');
 
-            await new Promise((resolve, reject) => {
-                model.insertMany(results, {
-                    ordered: false, // Used to ignore data with the same ID
-                }, (err: any, result: any) => {
-                    // Ignore Mongo error 11000 for data with same ID
-                    if (err.code !== 11000) reject(err);
-
-                    resolve(result);
+            const { upsertedCount, modifiedCount } = await model.bulkWrite(
+                results.map((item: any) =>
+                ({
+                    updateOne: {
+                        filter: { _id: item._id },
+                        update: { $set: item },
+                        upsert: true
+                    }
                 })
-            })
+                )
+            );
+
+            console.info(`
+                Total inserted: ${upsertedCount},
+                Total Modified: ${modifiedCount}
+            `);
         });
     } catch (err) {
         console.error(err);
