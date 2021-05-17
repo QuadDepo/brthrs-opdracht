@@ -22,7 +22,7 @@ export const getFilmCharacterCount = async (_id: number, gender: RegExp) => {
     }).exec()
 }
 
-export const getFilmById = async (_id: number, limit: number, skip: number, gender: RegExp) => {
+export const getFilmById = async (_id: number, limit: number, skip: number, gender: RegExp, sort: {}) => {
     return await filmModel.findOne({ _id }).populate({
         path: 'characters',
         match: {
@@ -31,6 +31,7 @@ export const getFilmById = async (_id: number, limit: number, skip: number, gend
             }
         },
         options: {
+            sort,
             skip,
             limit
         },

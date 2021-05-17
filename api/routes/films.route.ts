@@ -39,7 +39,12 @@ export const getFilmById = async (req: Request, res: Response) => {
         const { id } = req.params;
         // get default query string keys.
         // gender is . to have matching regex;
-        const { limit = 30, page = 1, gender = '.'} = { ...req.query };
+        const { limit = 30, page = 1, gender = '.', sorting = 'name:desc'} = { ...req.query };
+        // Split sort string into key and value
+        const [sortKey , sortValue] = sorting.split(':')
+        // Create with SortKey as key
+        const sort: { [key: string]: string } = {[sortKey]:sortValue};
+        
         // Create gender Regex
         const _gender: RegExp = new RegExp(`^${gender}`, 'i');
         // Get total count of documents with current filters for pagination
@@ -52,7 +57,7 @@ export const getFilmById = async (req: Request, res: Response) => {
             prev,
         } = pagination(+limit, +page, +total);
 
-        const results = await filmService.getFilmById(+id, +limit, +startIndex, _gender);
+        const results = await filmService.getFilmById(+id, +limit, +startIndex, _gender, sort);
 
         res.send({
             total,
