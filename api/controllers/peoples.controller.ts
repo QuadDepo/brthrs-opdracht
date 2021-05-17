@@ -7,9 +7,6 @@ export const getAllPeople = async (req: Request, res: Response) => {
         // Create filter object from params
         const filter = req?.params;
 
-        console.log(filter);
-        
-
         // get default query string keys.
         // gender, name, hair_color are . to have matching regex;
         const { limit = 30, page = 1, gender = '.', name = '.', sorting = 'name:desc', hair_color = '.' } = { ...req.query };
