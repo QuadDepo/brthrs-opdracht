@@ -16,7 +16,7 @@ export const getAllPeople = async (req: Request, res: Response) => {
         const sort: { [key: string]: string } = { [sortKey]: sortValue };
         // Create hair_color Regex with case insensitive matching.
         const _hair_color: RegExp = new RegExp(`${hair_color}`, 'i');
-        
+
         // Create name Regex
         const _name: RegExp = new RegExp(`.*${name}.*`, 'i');
 
