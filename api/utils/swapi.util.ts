@@ -20,6 +20,11 @@ const getData = async (endpoint: any) => {
             if (item?.birth_year) {
                 // Change to Number type 
                 item.age = item.birth_year === 'unknown' ? -1 : parseInt(item?.birth_year.replace('BBY', ''), 10);
+            } 
+
+            // Change Height to Number
+            if (item?.height) {
+                item.height = item.birth_year === 'unknown' ? -1 : parseInt(item?.height, 10);
             }
 
             return item;
