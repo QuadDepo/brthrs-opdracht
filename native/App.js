@@ -1,21 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
-export default function App() {
+// Import pages
+import FilmsPage from "./src/pages/FilmsPage";
+import FilmDetail from "./src/pages/FilmDetail";
+
+// Create navigation
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function FilmStack() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Tab.Navigator
+      tabBarOptions={{
+        style: {
+          borderTopColor: "transparent",
+          backgroundColor: "#0e1111",
+        },
+      }}
+    >
+      <Tab.Screen name="Films" component={FilmsPage} />
+    </Tab.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  return (
+    <>
+      <StatusBar barStyle="light" />
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator mode="modal">
+            <Stack.Screen
+              name="FilmsPage"
+              component={FilmStack}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="FilmDetail" component={FilmDetail} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
+    </>
+  );
+}
