@@ -6,8 +6,8 @@ export const getPlanets = async (req: Request, res: Response) => {
     try {
         const { name = '.', climate = '.', limit = 30, page = 1 } = { ...req.query };
         const _name = new RegExp(`.*${name}.*`, 'i');
-        const _climate: RegExp = new RegExp(`^${climate}`, 'i');
-        const total = await PlanetService.getPlanetsCount(_climate);
+        const _climate = new RegExp(`^${climate}`, 'i');
+        const total = await PlanetService.getPlanetsCount(_climate, _name);
 
         const {
             startIndex,
