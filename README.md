@@ -8,7 +8,7 @@ for which your backend will supply the data.
 
 ## Dependencies 
 
-For running it locally you will need Mongo DB running locally on port
+For running it locally you will need Mongo DB running locally on port 27017
 ## Ports 
 
 Express Server: 9000
@@ -65,7 +65,7 @@ Start the server
 
 **Server:** Node, Express, TypeScript (first time from scratch)
 
-**Client:** React Native
+**Client:** React Native, Expo
 
   
 # Endpoints
