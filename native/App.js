@@ -30,8 +30,7 @@ function FilmStack() {
 
 export default function App() {
   return (
-    <>
-      <StatusBar barStyle="light" />
+      <StatusBar style="light" />
       <SafeAreaProvider>
         <NavigationContainer>
           <Stack.Navigator mode="modal">
