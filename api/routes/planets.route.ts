@@ -33,8 +33,7 @@ export const getPlanetById = async (req: Request, res: Response) => {
     try {
         const { id } = req.params;
         const { hair_color = '.' } = { ...req.query };
-        const _hair_color: RegExp = new RegExp(`^${hair_color}$`, 'i');
-
+        const _hair_color: RegExp = new RegExp(`${hair_color}`, 'i');
         const results = await PlanetService.getPlanetById(+id, _hair_color);
 
         res.send(results);
