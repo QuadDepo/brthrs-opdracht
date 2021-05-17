@@ -12,7 +12,7 @@ const initialState = {
   films: {
     loading: false,
     error: false,
-    data: [],
+    data: {},
   },
   film: {
     loading: false,
@@ -22,13 +22,14 @@ const initialState = {
   characters: {
     loading: false,
     error: false,
-    data: [],
+    data: {},
   },
 };
 
 // Create Film reducer
-function FilmReducer(state, action) {
-  switch (action.type) {
+function FilmReducer(state, {type, payload}) {
+  console.log(Object.keys(payload));
+  switch (type) {
     case CONST.GET_FILMS:
       return {
         ...state,
@@ -37,7 +38,7 @@ function FilmReducer(state, action) {
     case CONST.GET_FILMS_SUCCESS:
       return {
         ...state,
-        films: { data: payload.data, loading: false, error: false },
+        films: { ...state.films, data: payload, loading: false, error: false },
       };
     case CONST.GET_FILMS_ERROR:
       return {
@@ -52,7 +53,7 @@ function FilmReducer(state, action) {
     case CONST.GET_SINGLE_FILM_SUCCESS:
       return {
         ...state,
-        film: { data: payload.data, loading: false, error: false },
+        film: { data: payload, loading: false, error: false },
       };
     case CONST.GET_SINGLE_FILM_ERROR:
       return {
@@ -67,7 +68,7 @@ function FilmReducer(state, action) {
     case CONST.GET_CHARACTERS_BY_FILM_SUCCESS:
       return {
         ...state,
-        characters: { data: payload.data, loading: false, error: false },
+        characters: { data: payload, loading: false, error: false },
       };
     case CONST.GET_CHARACTERS_BY_FILM_ERROR:
       return {
@@ -80,14 +81,14 @@ function FilmReducer(state, action) {
 }
 
 // Create Side Effect for Reducer actions
-async function effect(state, action) {
-  switch (action.type) {
+async function effect(state, {type, payload}) {
+  switch (type) {
     case CONST.GET_FILMS:
-      return API.getFilms(action.payload);
-    case GET_SINGLE_FILM:
-      return API.getSingleFilm(action.payload);
+      return API.getFilms(payload);
+    case CONST.GET_SINGLE_FILM:
+      return API.getSingleFilm(payload);
     case CONST.GET_CHARACTERS_BY_FILM:
-      return API.getCharactersByFilm(action.payload);
+      return API.getCharactersByFilm(payload);
   }
 }
 
@@ -97,6 +98,7 @@ function FilmsProvider({ children }) {
     effect,
     initialState
   );
+  console.log(state.films.data.length);
   const value = { state, dispatch };
 
   return (
