@@ -12,7 +12,7 @@ export const getPlanets = async ({ climate, page = 1, limit }) => {
 
     // Create URL Search Pararms
     const params = new URLSearchParams({ ...query });
-    const response = await fetch(`http://localhost:9000/planets/?${params}`);
+    const response = await fetch(`${CONST.API_URL}/planets/?${params}`);
     const data = await response.json();
 
     // Dispatch SUCCESS
@@ -31,7 +31,7 @@ export const getPlanets = async ({ climate, page = 1, limit }) => {
 
 export const getSinglePlanet = async ({ id }) => {
   try {
-    const response = await fetch(`http://localhost:9000/planets//${id}`);
+    const response = await fetch(`${CONST.API_URL}/planets//${id}`);
     const data = await response.json();
 
     console.log(data);
@@ -70,7 +70,7 @@ export const getResidentsByPlanet = async ({
     const params = new URLSearchParams({ ...query });
 
     const response = await fetch(
-      `http://localhost:9000/planets/${id}/residents/?${params}`
+      `${CONST.API_URL}/planets/${id}/residents/?${params}`
     );
     const data = await response.json();
 

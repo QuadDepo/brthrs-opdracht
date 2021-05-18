@@ -3,7 +3,7 @@ import * as CONST from "../const";
 export const getFilms = async ({ title }) => {
   try {
     const params = new URLSearchParams({ title });
-    const response = await fetch(`http://localhost:9000/films/?${params}`);
+    const response = await fetch(`${CONST.API_URL}/films/?${params}`);
     const data = await response.json();
 
     // Dispatch SUCCESS
@@ -22,7 +22,7 @@ export const getFilms = async ({ title }) => {
 
 export const getSingleFilm = async ({ id }) => {
   try {
-    const response = await fetch(`http://localhost:9000/films/${id}`);
+    const response = await fetch(`${CONST.API_URL}/films/${id}`);
     const data = await response.json();
 
     // Dispatch SUCCESS
@@ -59,7 +59,7 @@ export const getCharactersByFilm = async ({
     const params = new URLSearchParams({ ...query });
 
     const response = await fetch(
-      `http://localhost:9000/films/${id}/characters/?${params}`
+      `${CONST.API_URL}/films/${id}/characters/?${params}`
     );
     const data = await response.json();
 
