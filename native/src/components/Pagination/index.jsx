@@ -42,18 +42,24 @@ const styles = StyleSheet.create({
 });
 
 export default function Pagination({
+  title,
   prev,
   next,
   results,
   key = "name",
+  Component,
   onChange,
 }) {
   return (
     <View style={styles.page}>
-      <Text style={styles.title}>Characters:</Text>
-      {results?.map((item) => (
-        <Text style={styles.listItem}>{item[key]}</Text>
-      ))}
+      {title && <Text style={styles.title}>{title}:</Text>}
+      {results?.map((item) =>
+        Component ? (
+          <Component item={item} />
+        ) : (
+          <Text style={styles.listItem}>{item[key]}</Text>
+        )
+      )}
       <View style={styles.paginationWrapper}>
         <TouchableOpacity
           disabled={!prev}

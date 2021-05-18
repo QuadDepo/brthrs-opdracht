@@ -73,7 +73,7 @@ function FilmReducer(state, {type, payload}) {
     case CONST.GET_CHARACTERS_BY_FILM_ERROR:
       return {
         ...state,
-        characters: { ...state.film, loading: false, error: true },
+        characters: { ...state.characters, loading: false, error: true },
       };
     default:
       return state;

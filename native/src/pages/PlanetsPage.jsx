@@ -1,56 +1,64 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  View,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { SearchBar } from "react-native-elements";
 import { NavigationContext } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// Get Film Consts
-import { GET_FILMS } from "../const";
-// Import Film context
-import { useFilmContext } from "../context/Films";
-
+import Pagination from "../components/Pagination";
+// Get Planet Consts
+import { GET_PLANETS } from "../const";
+// Import Planet context
+import { usePlanetContext } from "../context/Planets";
 
 const styles = StyleSheet.create({
-  filmWrapper: {
-    marginTop: 20,
+  planetWrapper: {
     borderTopColor: "#fff",
     borderTopWidth: 1,
   },
 
-  filmItem: {
+  planetItem: {
     padding: 20,
     borderBottomColor: "#fff",
     borderBottomWidth: 1,
   },
 
-  filmItemText: {
+  planetItemText: {
     fontSize: 20,
     color: "#fff",
   },
 });
 
-
-
-export default function FilmPage() {
+export default function PlanetsPage() {
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   // Get Navigation Context
   const { navigate } = useContext(NavigationContext);
   // Get state and dispatch from Film Context
-  const { state, dispatch } = useFilmContext();
+  const { state, dispatch } = usePlanetContext();
 
   useEffect(() => {
-    dispatch({ type: GET_FILMS, payload: { title: search } });
-  }, [search]);
+    dispatch({ type: GET_PLANETS, payload: { climate: search, page } });
+  }, [search, page]);
 
   useEffect(() => {
-    dispatch({ type: GET_FILMS, payload: { title: "" } });
+    dispatch({ type: GET_PLANETS, payload: { climate: "" } });
   }, []);
 
-  const flatListItem = ({ item }) => (
+  useEffect(() => {
+    setPage(1)
+  }, [search])
+
+  const Planet = ({ item }) => (
     <TouchableOpacity
-      style={styles.filmItem}
-      onPress={() => navigate("FilmDetail", { id: item._id })}
+      style={styles.planetItem}
+      onPress={() => navigate("PlanetDetail", { id: item._id })}
     >
-      <Text style={styles.filmItemText}>{item.title}</Text>
+      <Text style={styles.planetItemText}>{item.name}</Text>
     </TouchableOpacity>
   );
 
@@ -66,14 +74,17 @@ export default function FilmPage() {
           value={search}
           onChangeText={(text) => setSearch(text)}
           onClear={() => setSearch("")}
-          placeholder="A new ... Job / Hope."
+          placeholder="Search Climate: Arid, Temperate"
         />
-        <FlatList
-          style={styles.filmWrapper}
-          data={state.films?.data?.results}
-          keyExtractor={(film) => film._id.toString()}
-          renderItem={flatListItem}
-        />
+        <ScrollView>
+          <View style={state.planetWrapper}>
+            <Pagination
+              {...state.planets?.data}
+              Component={Planet}
+              onChange={(newPage) => setPage(newPage)}
+            />
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );

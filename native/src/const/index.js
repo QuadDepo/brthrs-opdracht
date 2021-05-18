@@ -1,3 +1,6 @@
+// Change for production or if you want to use it on EXPO mobile
+export const API_URL = "http://localhost:9000";
+
 export const GET_FILMS = "GET_FILMS";
 export const GET_FILMS_SUCCESS = "GET_FILMS_SUCCESS";
 export const GET_FILMS_ERROR = "GET_FILMS_ERROR";
