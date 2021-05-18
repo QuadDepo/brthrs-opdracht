@@ -5,10 +5,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { FilmsProvider } from "./src/context/Films";
+import { PlanetsProvider } from "./src/context/Planets";
 
 // Import pages
 import FilmsPage from "./src/pages/FilmsPage";
 import FilmDetail from "./src/pages/FilmDetail";
+import PlanetsPage from "./src/pages/PlanetsPage";
 
 const MyTheme = {
   ...DefaultTheme,
@@ -25,7 +27,7 @@ const MyTheme = {
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
-function FilmStack() {
+function TabNavigtion() {
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -36,6 +38,7 @@ function FilmStack() {
       }}
     >
       <Tab.Screen name="Films" component={FilmsPage} />
+      <Tab.Screen name="Planets" component={PlanetsPage} />
     </Tab.Navigator>
   );
 }
@@ -43,26 +46,28 @@ function FilmStack() {
 export default function App() {
   return (
     <FilmsProvider>
-      <StatusBar style="light" />
-      <SafeAreaProvider>
-        <NavigationContainer theme={MyTheme}>
-          <Stack.Navigator mode="modal">
-            <Stack.Screen
-              name="FilmsPage"
-              component={FilmStack}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="FilmDetail"
-              component={FilmDetail}
-              options={{
-                headerTintColor: "#fff",
-                headerBackTitle: null,
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </SafeAreaProvider>
+      <PlanetsProvider>
+        <StatusBar style="light" />
+        <SafeAreaProvider>
+          <NavigationContainer theme={MyTheme}>
+            <Stack.Navigator mode="modal">
+              <Stack.Screen
+                name="Tabs"
+                component={TabNavigtion}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="FilmDetail"
+                component={FilmDetail}
+                options={{
+                  headerTintColor: "#fff",
+                  headerBackTitle: null,
+                }}
+              />
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
+      </PlanetsProvider>
     </FilmsProvider>
   );
 }
