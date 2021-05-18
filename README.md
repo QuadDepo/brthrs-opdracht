@@ -57,6 +57,8 @@ Start the server
   npm run start / yarn start
 ```
 
+To run it on Expo Mobile app you can change the localhost url located at `native/src/const/index.js` to the ip of the macbook/pc running the Express API
+
 
 
 
