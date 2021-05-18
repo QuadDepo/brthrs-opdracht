@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   filterTitle: {
     marginTop: 10,
     marginBottom: 10,
-    fontSize: 20,
+    fontSize: 16,
     color: "#fff",
   },
 
@@ -51,6 +51,7 @@ export default function Filter({ filterKey, name, data, onChange = () => {} }) {
       <View style={styles.filterItemsWrapper}>
         {data.map((item) => (
           <TouchableOpacity
+            key={item}
             onPress={() => setFilter(filter !== item ? item : '' )}
             style={[
               styles.filterButton,
