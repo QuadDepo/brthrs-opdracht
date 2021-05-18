@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
@@ -9,6 +9,17 @@ import { FilmsProvider } from "./src/context/Films";
 // Import pages
 import FilmsPage from "./src/pages/FilmsPage";
 import FilmDetail from "./src/pages/FilmDetail";
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    card: "#1C2222",
+    border: "transparent",
+    background: "#1C2222",
+    text: "#fff",
+  },
+};
 
 // Create navigation
 const Tab = createBottomTabNavigator();
@@ -34,14 +45,21 @@ export default function App() {
     <FilmsProvider>
       <StatusBar style="light" />
       <SafeAreaProvider>
-        <NavigationContainer>
+        <NavigationContainer theme={MyTheme}>
           <Stack.Navigator mode="modal">
             <Stack.Screen
               name="FilmsPage"
               component={FilmStack}
               options={{ headerShown: false }}
             />
-            <Stack.Screen name="FilmDetail" component={FilmDetail} />
+            <Stack.Screen
+              name="FilmDetail"
+              component={FilmDetail}
+              options={{
+                headerTintColor: "#fff",
+                headerBackTitle: null,
+              }}
+            />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>
