@@ -71,7 +71,7 @@ export default function FilmPage() {
         <FlatList
           style={styles.filmWrapper}
           data={state.films?.data?.results}
-          keyExtractor={(film) => film._id}
+          keyExtractor={(film) => film._id.toString()}
           renderItem={flatListItem}
         />
       </SafeAreaView>
