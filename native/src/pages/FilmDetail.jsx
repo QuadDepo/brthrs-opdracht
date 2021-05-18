@@ -1,8 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
+import {
+  ScrollView,
+  FlatList,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-import Pagination from '../components/Pagination'
+import Pagination from "../components/Pagination";
+import Filter from "../components/Filter";
 // Get Film Consts
 import { GET_SINGLE_FILM, GET_CHARACTERS_BY_FILM } from "../const";
 // Import Film context
@@ -23,19 +30,27 @@ const styles = StyleSheet.create({
   },
 
   opening_crawl: {
-    width: '100%',
+    width: "100%",
     fontSize: 20,
     color: "#fff",
   },
 });
 
-export default function FilmDetail({ route }) {
+export default function FilmDetail({ route, navigation }) {
   // Get Film ID
   const { id } = route.params;
   // Get state and dispatch from Film Context
   const { state, dispatch } = useFilmContext();
 
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
+  const [filters, setFilters] = useState();
+
+  const filter = {
+    filterKey: "gender",
+    name: "Gender",
+    data: ["n/a", "male", "female"],
+    onChange: (filter) => setFilters({...filters, filter})
+  };
 
   useEffect(() => {
     // Get Single Film and Characters by Film ID
@@ -44,9 +59,14 @@ export default function FilmDetail({ route }) {
   }, []);
 
   useEffect(() => {
-    console.log(page);
-    dispatch({ type: GET_CHARACTERS_BY_FILM, payload: { id, page } });
-  }, [page])
+    navigation.setOptions({ title: state.film.data?.title });
+  }, [state.film.data.title]);
+
+  useEffect(() => {
+    console.log(filters);
+    console.log({...filters});
+    dispatch({ type: GET_CHARACTERS_BY_FILM, payload: { id, page, ...filters } });
+  }, [page, filters]);
 
   const flatListItem = ({ item }) => (
     <TouchableOpacity>
@@ -61,17 +81,11 @@ export default function FilmDetail({ route }) {
         <Text style={styles.opening_crawl}>
           {state.film.data?.opening_crawl}
         </Text>
+        <Filter {...filter} />
         <Pagination
           {...state.characters.data}
           onChange={(newPage) => setPage(newPage)}
         />
-        {/* <FlatList
-          data={state.characters?.data}
-          onEndReached={loadMore}
-          onEndReachedThreshold={0.7}
-          keyExtractor={(character) => character._id}
-          renderItem={flatListItem}
-        /> */}
       </SafeAreaView>
     </ScrollView>
   );
