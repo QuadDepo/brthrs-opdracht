@@ -56,7 +56,7 @@ export default function PlanetsPage() {
   const Planet = ({ item }) => (
     <TouchableOpacity
       style={styles.planetItem}
-      onPress={() => navigate("planetDetail", { id: item._id })}
+      onPress={() => navigate("PlanetDetail", { id: item._id })}
     >
       <Text style={styles.planetItemText}>{item.name}</Text>
     </TouchableOpacity>
