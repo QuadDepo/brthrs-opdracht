@@ -1,13 +1,33 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, FlatList, Text, TouchableOpacity } from "react-native";
+import { View, FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { NavigationContext } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 // Get Film Consts
 import { GET_FILMS } from "../const";
 // Import Film context
 import { useFilmContext } from "../context/Films";
+
+
+const styles = StyleSheet.create({
+  filmWrapper: {
+    marginTop: 20,
+    borderTopColor: "#fff",
+    borderTopWidth: 1,
+  },
+
+  filmItem: {
+    padding: 20,
+    borderBottomColor: "#fff",
+    borderBottomWidth: 1,
+  },
+
+  filmItemText: {
+    fontSize: 20,
+    color: "#fff",
+  },
+});
+
 
 
 export default function FilmPage() {
@@ -26,8 +46,11 @@ export default function FilmPage() {
   }, []);
 
   const flatListItem = ({ item }) => (
-    <TouchableOpacity onPress={() => navigate("FilmDetail", {id: item._id})}>
-      <Text>{item.title}</Text>
+    <TouchableOpacity
+      style={styles.filmItem}
+      onPress={() => navigate("FilmDetail", { id: item._id })}
+    >
+      <Text style={styles.filmItemText}>{item.title}</Text>
     </TouchableOpacity>
   );
 
@@ -46,6 +69,7 @@ export default function FilmPage() {
           placeholder="A new ... Job / Hope."
         />
         <FlatList
+          style={styles.filmWrapper}
           data={state.films?.data?.results}
           keyExtractor={(film) => film._id}
           renderItem={flatListItem}

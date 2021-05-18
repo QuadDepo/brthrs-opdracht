@@ -43,12 +43,12 @@ export const getCharactersByFilm = async ({
   id,
   page = 1,
   limit,
-  gender,
+  filter,
   sorting,
 }) => {
   try {
     // Create Query String from given data
-    const query = { page, limit, gender, sorting };
+    const query = { page, limit, ...filter, sorting };
 
     // Remove undefined query params
     Object.keys(query).forEach(
