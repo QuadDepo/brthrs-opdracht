@@ -1,22 +1,87 @@
 import React, { useState, useEffect, useContext } from "react";
-import { View, Text, ScrollView, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-export default function Pagination({ total, prev, next, results, key = 'name', onChange }) {
+const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    paddingTop: 30,
+    paddingBottom: 30,
+  },
+
+  title: {
+    marginBottom: 10,
+    fontSize: 24,
+    color: "#fff",
+  },
+
+  listItem: {
+    padding: 5,
+    borderBottomColor: "#fff",
+    borderBottomWidth: 1,
+    fontSize: 16,
+    color: "#fff",
+  },
+
+  paginationWrapper: {
+    padding: 20,
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+  },
+
+  paginationText: {
+    fontSize: 16,
+    color: "#fff",
+  },
+
+  paginationTextDisabled: {
+      opacity: .5
+  }
+});
+
+export default function Pagination({
+  prev,
+  next,
+  results,
+  key = "name",
+  onChange,
+}) {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.page}>
+      <Text style={styles.title}>Characters:</Text>
       {results?.map((item) => (
-        <Text>{item[key]}</Text>
+        <Text style={styles.listItem}>{item[key]}</Text>
       ))}
-      {prev && (
-        <TouchableOpacity onPress={() => onChange(prev)}>
-          <Text>Prev</Text>
+      <View style={styles.paginationWrapper}>
+        <TouchableOpacity
+          disabled={!prev}
+          onPress={() => prev && onChange(prev)}
+        >
+          <Text
+            style={[
+              styles.paginationText,
+              !prev && styles.paginationTextDisabled,
+            ]}
+          >
+            Prev Page
+          </Text>
         </TouchableOpacity>
-      )}
-      {next && (
-        <TouchableOpacity onPress={() => onChange(next)}>
-          <Text>Next</Text>
+        <TouchableOpacity
+          disabled={!next}
+          onPress={() => next && onChange(next)}
+        >
+          <Text
+            style={[
+              styles.paginationText,
+              !next && styles.paginationTextDisabled,
+            ]}
+          >
+            Next Page
+          </Text>
         </TouchableOpacity>
-      )}
+      </View>
     </View>
   );
 }
