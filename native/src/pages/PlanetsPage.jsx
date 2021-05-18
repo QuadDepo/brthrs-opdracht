@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
   View,
-  FlatList,
+  ScrollView,
   Text,
   TouchableOpacity,
   StyleSheet,
@@ -9,6 +9,7 @@ import {
 import { SearchBar } from "react-native-elements";
 import { NavigationContext } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Pagination from "../components/Pagination";
 // Get Planet Consts
 import { GET_PLANETS } from "../const";
 // Import Planet context
@@ -16,7 +17,6 @@ import { usePlanetContext } from "../context/Planets";
 
 const styles = StyleSheet.create({
   planetWrapper: {
-    marginTop: 20,
     borderTopColor: "#fff",
     borderTopWidth: 1,
   },
@@ -35,25 +35,30 @@ const styles = StyleSheet.create({
 
 export default function PlanetsPage() {
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
   // Get Navigation Context
   const { navigate } = useContext(NavigationContext);
   // Get state and dispatch from Film Context
   const { state, dispatch } = usePlanetContext();
 
   useEffect(() => {
-    dispatch({ type: GET_PLANETS, payload: { climate: search } });
-  }, [search]);
+    dispatch({ type: GET_PLANETS, payload: { climate: search, page } });
+  }, [search, page]);
 
   useEffect(() => {
     dispatch({ type: GET_PLANETS, payload: { climate: "" } });
   }, []);
 
-  const flatListItem = ({ item }) => (
+  useEffect(() => {
+    setPage(1)
+  }, [search])
+
+  const Planet = ({ item }) => (
     <TouchableOpacity
       style={styles.planetItem}
       onPress={() => navigate("planetDetail", { id: item._id })}
     >
-      <Text style={styles.planetItemText}>{item.title}</Text>
+      <Text style={styles.planetItemText}>{item.name}</Text>
     </TouchableOpacity>
   );
 
@@ -69,14 +74,17 @@ export default function PlanetsPage() {
           value={search}
           onChangeText={(text) => setSearch(text)}
           onClear={() => setSearch("")}
-          placeholder="Acid, Temperate"
+          placeholder="Search Climate: Arid, Temperate"
         />
-        <FlatList
-          style={styles.planetWrapper}
-          data={state.planets?.data?.results}
-          keyExtractor={(planet) => planet._id}
-          renderItem={flatListItem}
-        />
+        <ScrollView>
+          <View style={state.planetWrapper}>
+            <Pagination
+              {...state.planets?.data}
+              Component={Planet}
+              onChange={(newPage) => setPage(newPage)}
+            />
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
