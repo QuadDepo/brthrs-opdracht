@@ -31,8 +31,10 @@ export const getPlanets = async ({ climate, page = 1, limit }) => {
 
 export const getSinglePlanet = async ({ id }) => {
   try {
-    const response = await fetch(`http://localhost:9000/planets/${id}}`);
+    const response = await fetch(`http://localhost:9000/planets//${id}`);
     const data = await response.json();
+
+    console.log(data);
 
     // Dispatch SUCCESS
     return {
