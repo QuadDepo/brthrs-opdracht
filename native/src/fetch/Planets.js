@@ -34,8 +34,6 @@ export const getSinglePlanet = async ({ id }) => {
     const response = await fetch(`${CONST.API_URL}/planets//${id}`);
     const data = await response.json();
 
-    console.log(data);
-
     // Dispatch SUCCESS
     return {
       type: CONST.GET_SINGLE_PLANET_SUCCESS,
