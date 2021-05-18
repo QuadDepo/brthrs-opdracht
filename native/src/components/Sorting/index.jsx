@@ -54,6 +54,7 @@ export default function sorting({ sortingData, onChange = () => {} }) {
           <View style={styles.sortingItemsWrapper}>
             {sortOrders.map((order) => (
               <TouchableOpacity
+                key={sortingKey+order}
                 onPress={() =>
                   setsorting(
                     sorting !== `${sortingKey}:${order}`
