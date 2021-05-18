@@ -3,7 +3,8 @@ import React from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Icon } from "react-native-elements";
 import { FilmsProvider } from "./src/context/Films";
 import { PlanetsProvider } from "./src/context/Planets";
 
@@ -36,10 +37,37 @@ function TabNavigtion() {
           borderTopColor: "transparent",
           backgroundColor: "#0e1111",
         },
+        activeTintColor: "yellow",
       }}
     >
-      <Tab.Screen name="Films" component={FilmsPage} />
-      <Tab.Screen name="Planets" component={PlanetsPage} />
+      <Tab.Screen
+        name="Films"
+        component={FilmsPage}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon
+              name="home"
+              name="film-outline"
+              type="ionicon"
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Planets"
+        component={PlanetsPage}
+        options={{
+          tabBarIcon: ({ color }) => (
+            <Icon
+              name="home"
+              name="planet-outline"
+              type="ionicon"
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 }
