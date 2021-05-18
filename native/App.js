@@ -11,6 +11,7 @@ import { PlanetsProvider } from "./src/context/Planets";
 import FilmsPage from "./src/pages/FilmsPage";
 import FilmDetail from "./src/pages/FilmDetail";
 import PlanetsPage from "./src/pages/PlanetsPage";
+import PlanetDetail from "./src/pages/PlanetDetail";
 
 const MyTheme = {
   ...DefaultTheme,
@@ -59,6 +60,14 @@ export default function App() {
               <Stack.Screen
                 name="FilmDetail"
                 component={FilmDetail}
+                options={{
+                  headerTintColor: "#fff",
+                  headerBackTitle: null,
+                }}
+              />
+              <Stack.Screen
+                name="PlanetDetail"
+                component={PlanetDetail}
                 options={{
                   headerTintColor: "#fff",
                   headerBackTitle: null,
