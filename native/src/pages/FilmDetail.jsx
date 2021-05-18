@@ -1,13 +1,33 @@
 import React, { useState, useEffect, useContext } from "react";
-import { ScrollView, FlatList, Text, TouchableOpacity } from "react-native";
+import { ScrollView, FlatList, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Pagination from '../components/Pagination'
-
 // Get Film Consts
 import { GET_SINGLE_FILM, GET_CHARACTERS_BY_FILM } from "../const";
 // Import Film context
 import { useFilmContext } from "../context/Films";
+
+const styles = StyleSheet.create({
+  page: {
+    flex: 1,
+    paddingLeft: 30,
+    paddingRight: 30,
+    paddingBottom: 30,
+  },
+
+  title: {
+    marginBottom: 20,
+    fontSize: 36,
+    color: "#fff",
+  },
+
+  opening_crawl: {
+    width: '100%',
+    fontSize: 20,
+    color: "#fff",
+  },
+});
 
 export default function FilmDetail({ route }) {
   // Get Film ID
@@ -36,9 +56,11 @@ export default function FilmDetail({ route }) {
 
   return (
     <ScrollView style={{ backgroundColor: "#1C2222", flex: 1 }}>
-      <SafeAreaView style={{ flex: 1 }}>
-        <Text>{state.film.data?.title}</Text>
-        <Text>{state.film.data?.opening_crawl}</Text>
+      <SafeAreaView style={styles.page}>
+        <Text style={styles.title}>{state.film.data?.title}</Text>
+        <Text style={styles.opening_crawl}>
+          {state.film.data?.opening_crawl}
+        </Text>
         <Pagination
           {...state.characters.data}
           onChange={(newPage) => setPage(newPage)}
