@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import { ScrollView, FlatList, Text, TouchableOpacity } from "react-native";
-import { NavigationContext } from "@react-navigation/native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import Pagination from '../components/Pagination'
@@ -13,8 +12,6 @@ import { useFilmContext } from "../context/Films";
 export default function FilmDetail({ route }) {
   // Get Film ID
   const { id } = route.params;
-  // Get Navigation Context
-  const { navigate } = useContext(NavigationContext);
   // Get state and dispatch from Film Context
   const { state, dispatch } = useFilmContext();
 
